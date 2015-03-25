@@ -2,7 +2,12 @@ h1 Weibo Index Desu!!!
 h3
   ="welcom, #{current_user.email}"
 
-- current_user.wb_msg.each do |msg]
-  
+.weiboss
+  - @wb_msgs.each do |msg|
+    p  
+      string 
+        ="#{ msg.content } : #{ msg.auther }" 
+      a href="wb_msgs/#{ msg.id }/edit" edit
+      = link_to 'delete', wb_msg_path(msg), method: :delete
 
 a href=new_wb_msg_path new

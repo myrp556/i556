@@ -1,0 +1,9 @@
+= form_for @wb_msg do |f|
+  p
+    = f.label :Auther
+    = f.text_field :auther
+  p
+    = f.label :Content
+    = f.text_area :content
+  p style="display: none"
+  = f.submit

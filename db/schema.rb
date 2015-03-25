@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324074754) do
+ActiveRecord::Schema.define(version: 20150325013158) do
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20150324074754) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "auther_id"
   end
 
   add_index "wb_msgs", ["user_id"], name: "index_wb_msgs_on_user_id"
