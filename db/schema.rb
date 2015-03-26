@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150325013158) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -28,8 +31,8 @@ ActiveRecord::Schema.define(version: 20150325013158) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "wb_msgs", force: true do |t|
     t.string   "auther"
@@ -40,7 +43,7 @@ ActiveRecord::Schema.define(version: 20150325013158) do
     t.integer  "auther_id"
   end
 
-  add_index "wb_msgs", ["user_id"], name: "index_wb_msgs_on_user_id"
+  add_index "wb_msgs", ["user_id"], name: "index_wb_msgs_on_user_id", using: :btree
 
   create_table "wg_msgs", force: true do |t|
     t.string   "author"
@@ -50,6 +53,6 @@ ActiveRecord::Schema.define(version: 20150325013158) do
     t.datetime "updated_at"
   end
 
-  add_index "wg_msgs", ["user_id"], name: "index_wg_msgs_on_user_id"
+  add_index "wg_msgs", ["user_id"], name: "index_wg_msgs_on_user_id", using: :btree
 
 end
