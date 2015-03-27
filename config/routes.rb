@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :wb_msgs
   post 'wb_msgs/new' => 'wb_msgs#create'
 
+  get 'post/:id' => 'weibos#post'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
