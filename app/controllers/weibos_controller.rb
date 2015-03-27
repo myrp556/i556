@@ -23,7 +23,7 @@ end
 
 def access_token_inval(access_token)
     @r1 = post_api("https://api.weibo.com/oauth2/get_token_info", { :access_token => access_token })
-    @r1[:expire_in]<=0
+    @r1[:expire_in].to_i<=0
 end
 
 class WeibosController < ApplicationController
