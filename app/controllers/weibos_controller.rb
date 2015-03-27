@@ -9,7 +9,7 @@ def post_api(api, args)
     req = Net::HTTP::Post.new(uri.request_uri)
     req.set_form_data(args)
     response = http.request(req)
-    response.body
+    JSON.load(response.body)
 end
 
 def get_api(api, args)
@@ -37,6 +37,8 @@ class WeibosController < ApplicationController
       @access_token = current_user.access_token
       if (@state && @code)
         @data = post_api("https://api.weibo.com/oauth2/access_token", {:client_id => @appkey, :client_secret => @appsecret, :grant_type => "authorization_code", :redirect_uri => "http://i556.herokuapp.com/weibo", :code => @code})
+        rj = JSON.parse(@data)
+        @access_token = rj[:access_token]
         current_user.access_token = @access_token
         current_user.save
       end
