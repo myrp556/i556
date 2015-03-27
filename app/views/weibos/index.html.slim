@@ -14,14 +14,21 @@ data
   = @data
 access_token
   = "= #{@access_token} ="
-msgs
-  = @msgs
 info
   h4 info
   = "#{@info['error']}"
   = @info
   = "error: #{@err}"
   = "error_code: #{@error_code}"
+expert_in
+  h4 expert_in
+  = "#{ @expert_in.class } : #{ #expert_in }"
+status
+  h4 colle
+  = @colle
+json
+  h4 json
+  = @json
 h1 Weibo Index Desu!!!
 h3
   ="welcom, #{current_user.email}"

@@ -24,6 +24,7 @@ end
 
 def access_token_inval(access_token)
     @r1 = post_api("https://api.weibo.com/oauth2/get_token_info", { :access_token => access_token })
+    (@r1["expert_in"]).to_i
 end
 
 class WeibosController < ApplicationController
@@ -46,8 +47,15 @@ class WeibosController < ApplicationController
       @error_code = @info["error_code"]
       if (!@access_token)
       end
+      @expert_in = access_token_inval(@access_token)
+      @colle = {}
       if (@access_token)
         @msgs = get_api("https://api.weibo.com/2/statuses/user_timeline.json", {:access_token => @access_token})
+        @colle = { "name" => @msgs["statuses"][0]["user"]["screen_name"], "texts" => [] }
+        for status in @msgs["statuses"]
+          @colle["texts"] << { "text" => status["text"], "created_at" => status["created_at"] }
+        end
+        @json = format.json(@colle)
       end
     end
 
