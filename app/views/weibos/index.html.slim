@@ -1,3 +1,13 @@
+= content_for :title do
+  = "Weibo"
+= content_for :link do
+  = javascript_include_tag 'weibos'
+  = stylesheet_link_tag 'weibos'
+state.hidetag
+  = @state
+code.hidetag
+  = @code
+
 h1 Weibo Index Desu!!!
 h3
   ="welcom, #{current_user.email}"
@@ -13,3 +23,5 @@ h3
       = link_to 'delete', wb_msg_path(msg), method: :delete
 
 a href=new_wb_msg_path new
+a href="https://api.weibo.com/oauth2/authorize?client_id=#{@appkey}&redirect_uri=http://i556.herokuapp.com/weibo&state=2&response_type=code" 
+  = "get weibo"
