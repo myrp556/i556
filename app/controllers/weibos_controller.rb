@@ -34,11 +34,11 @@ class WeibosController < ApplicationController
       @appsecret = "510fd9a175bc9f24d05514a6708c9517"
       @state = params[:state]
       @code = params[:code]
-      @access_token = current_user.access_code
+      @access_token = current_user.access_token
       if (@state && @code)
         @data = post_api("https://api.weibo.com/oauth2/access_token", {:client_id => @appkey, :client_secret => @appsecret, :grant_type => "authorization_code", :redirect_uri => "http://i556.herokuapp.com/weibo", :code => @code})
         @access_token = @data[:access_token]
-        current_user.access_code = @access_token
+        current_user.access_token = @access_token
         current_user.save
       end
       if (!@access_token or access_token_inval(@access_token))
