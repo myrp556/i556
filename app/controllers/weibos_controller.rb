@@ -45,6 +45,7 @@ class WeibosController < ApplicationController
         if @access_token
           current_user.access_token = @access_token
           current_user.save
+        end
       end
       @info = access_token_inval( @access_token )
       if (!@access_token)
