@@ -8,7 +8,7 @@ state.hidetag
 code.hidetag
   = @code
 class
-  = "data: #{@data[:access_token]} #{@data.class}"
+  = "data: #{} #{@data.class}"
   = "rj: #{@rj} : #{@rj.class}"
 data
   = @data
@@ -17,7 +17,11 @@ access_token
 msgs
   = @msgs
 info
+  h4 info
+  = "#{@info['error']}"
   = @info
+  = "error: #{@err}"
+  = "error_code: #{@error_code}"
 h1 Weibo Index Desu!!!
 h3
   ="welcom, #{current_user.email}"
