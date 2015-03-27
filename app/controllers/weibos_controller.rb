@@ -51,8 +51,9 @@ class WeibosController < ApplicationController
       @colle = {}
       if (@access_token)
         @msgs = get_api("https://api.weibo.com/2/statuses/user_timeline.json", {:access_token => @access_token})
-        @colle = { "name" => @msgs["statuses"][0]["user"]["screen_name"], "texts" => [] }
-        @json = format.json(@colle)
+        if !@msgs["error"]
+          @colle = { "name" => @msgs["statuses"][0]["user"]["screen_name"], "texts" => [] }
+          @json = format.json(@colle)
       end
     end
 
