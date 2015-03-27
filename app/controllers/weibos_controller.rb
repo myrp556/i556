@@ -23,7 +23,6 @@ end
 
 def access_token_inval(access_token)
     @r1 = post_api("https://api.weibo.com/oauth2/get_token_info", { :access_token => access_token })
-    @r1[:expire_in].to_i<=0
 end
 
 class WeibosController < ApplicationController
@@ -41,7 +40,8 @@ class WeibosController < ApplicationController
         current_user.access_token = @access_token
         current_user.save
       end
-      if (!@access_token or access_token_inval(@access_token))
+      @info = access_token_inval( @access_token )
+      if (!@access_token)
         redirect_to "https://api.weibo.com/oauth2/authorize?client_id=#{ @appkey }&response_type=code&redirect_uri=http://i556.herokuapp.com/weibo&state=2"
       end
       if (@access_token)
