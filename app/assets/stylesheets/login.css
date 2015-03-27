@@ -1,0 +1,13 @@
+#login-panel{
+    max-width: 65%;
+    margin: 0 auto;
+}
+input[type="email"]{
+    border-bottom-left-radius :0;
+    border-bottom-right-radius: 0;
+    margin-bottom: -1px;
+}
+input[type="password"]{
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}

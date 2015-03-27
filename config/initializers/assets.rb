@@ -12,3 +12,4 @@ Rails.application.config.assets.precompile += %w( bootstrap.js )
 Rails.application.config.assets.precompile += %w( bootstrap.min.js )
 
 Rails.application.config.assets.precompile += %w( home.js )
+Rails.application.config.assets.precompile += %w( login.css )
