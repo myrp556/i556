@@ -1,7 +1,7 @@
 source 'https://ruby.taobao.org'
 
 gem 'slim-rails'
-
+gem 'rails_12factor', group: :production
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
