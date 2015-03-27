@@ -42,7 +42,6 @@ class WeibosController < ApplicationController
       end
       @info = access_token_inval( @access_token )
       if (!@access_token)
-        redirect_to "https://api.weibo.com/oauth2/authorize?client_id=#{ @appkey }&response_type=code&redirect_uri=http://i556.herokuapp.com/weibo&state=2"
       end
       if (@access_token)
         @msgs = get_api("https://api.weibo.com/2/statuses/user_timeline.json", {:access_token => @access_token})
