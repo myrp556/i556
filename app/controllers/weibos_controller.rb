@@ -21,6 +21,11 @@ def get_api(api, args)
     JSON.load(response.body)
 end
 
+def access_token_inval(access_token)
+    @r1 = post_api("https://api.weibo.com/oauth2/get_token_info", { :access_token => access_token })
+    @r1[:expire_in]<=0
+end
+
 class WeibosController < ApplicationController
     before_filter :authenticate_user!
     def index
@@ -29,9 +34,18 @@ class WeibosController < ApplicationController
       @appsecret = "510fd9a175bc9f24d05514a6708c9517"
       @state = params[:state]
       @code = params[:code]
+      @access_token = current_user.access_code
       if (@state && @code)
         @data = post_api("https://api.weibo.com/oauth2/access_token", {:client_id => @appkey, :client_secret => @appsecret, :grant_type => "authorization_code", :redirect_uri => "http://i556.herokuapp.com/weibo", :code => @code})
         @access_token = @data[:access_token]
+        current_user.access_code = @access_token
+        current_user.save
+      end
+      if (!@access_token or access_token_inval(@access_token))
+        redirect_to "https://api.weibo.com/oauth2/authorize?client_id=#{ @appkey }&response_type=code&redirect_uri=http://i556.herokuapp.com/weibo&state=2"
+      end
+      if (@access_token)
+        @msgs = get_api("https://api.weibo.com/2/statuses/user_timeline.json", {:access_token => @access_token})
       end
     end
 
