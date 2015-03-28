@@ -1,0 +1,28 @@
+= content_for :link do
+  = stylesheet_link_tag 'banner'
+
+= image_tag 'sendai.jpg', class: "banner-img"
+nav.navbar.navbar-default
+  .container
+    .navbar-header
+      a.navbar-brand href="#"
+        = "556"
+    .navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li 
+          a href=home_index_path 
+            strong Home
+      ul.nav.navbar-nav.navbar-right
+        - if !current_user
+          li
+            a href = new_user_session_path
+              strong Login
+        -else
+          li.dropdown
+            a.dropdown-toggle href="#" data-toggle="dropdown"
+              strong
+                = current_user.email
+              span.caret
+            ul.dropdown-menu role="menu"
+              li
+                = link_to 'Logout', href = destroy_user_session_path, method: :delete

@@ -1,10 +1,15 @@
 = content_for :link do
-  script src="#{ asset_path('home.js') }"
-h1 Welcome h!
-
+  = javascript_include_tag 'home'
+  = stylesheet_link_tag 'home'
 = content_for :title do
   = "Home"
+= render 'layouts/banner'
 
-a.btn.btn-primary href=weibo_path
-  Go to Weibo!
-= link_to 'Go to Weibo!', weibo_path
+.container
+  .jumbtoron
+    h1 556
+    p.lead
+      = "欢迎来到556的实验发射基地"
+  hr
+  a.btn.btn-primary href=weibo_path
+    Go to Weibo!

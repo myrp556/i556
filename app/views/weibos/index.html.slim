@@ -3,54 +3,28 @@
 = content_for :link do
   = javascript_include_tag 'weibos'
   = stylesheet_link_tag 'weibos'
-state.hidetag
-  = @state
-code.hidetag
-  = @code
-class
-  = "data: #{} #{@data.class}"
-  = "rj: #{@rj} : #{@rj.class}"
-data
-  = @data
-access_token
-  = "= #{@access_token} ="
-info
-  h4 info
-  = @info
-status
-  h4 colle
-  = @colle
-json
-  h4 json
-  = @json
-j
-  h4 j
-  = "#{@j.class} = #{@j} = #{@j}"
-  h4 h
-  = "#{@h.class} = #{@h} = #{@h["a"]}"
-h1 Weibo Index Desu!!!
-h3
-  ="welcom, #{current_user.email}"
 
-= link_to 'logout', destroy_user_session_path, method: :delete
+= render 'layouts/banner'
 
-.weiboss
+.container
+  - if !current_user.screen_name
+    h2 你还没有获得微博认证...
+  - else
+    h2
+      = "#{current_user.screen_name}的微博"
+    hr
+
+    .weiboss
   string
   - if @colle && @colle["name"]
     = "#{@colle["name"]}de weibo"
     - if @colle["texts"]
       - @colle["texts"].each do |text|
-        - if text && text["text"] && text["created_at"]
+        - if text && text["text"] && text["created_date"]
           p
-            string
-              = "#{text["text"]} : #{text["created_at"]}"
-  - @wb_msgs.each do |msg|
-    p  
-      string 
-        ="#{ msg.content } : #{ msg.auther }" 
-      a href="wb_msgs/#{ msg.id }/edit" edit
-      = link_to 'delete', wb_msg_path(msg), method: :delete
+            = "#{text["text"]}"
+          small
+            = "#{text["created_date"]}"
 
-a href=new_wb_msg_path new
 a href="https://api.weibo.com/oauth2/authorize?client_id=#{@appkey}&redirect_uri=http://i556.herokuapp.com/weibo&state=2&response_type=code" 
   = "get weibo"
