@@ -81,6 +81,8 @@ class WeibosController < ApplicationController
 
     def post
       @user = User.find(params[:id])
-      @wb_msgs = WbMsg.where("auther_id = ?", params[:id])
+      if @user
+        @wb_msgs = @user.wb_msgs 
+      end
     end
 end

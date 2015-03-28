@@ -1,6 +1,16 @@
 
 h1 Post
 
-- @wb_msgs.each do |msg|
-  p
-    = msg.content
+- if !@user
+  h3 User Does NOT exist! 
+else
+  - if @user.screen_name
+    h2
+      ="#{@user.screen_name}de weibo"
+    - if @wb_msgs.length>0
+      - @wb_msgs.each do |msg|
+        p
+          = msg.text
+  - else
+    h2
+      ="This user has not get Weibo.."
