@@ -39,6 +39,8 @@ class WeibosController < ApplicationController
       @state = params[:state]
       @code = params[:code]
       @access_token = current_user.access_token
+      @h = { "a" => 1, "b" => 2 }
+      @j = @h.to_json
       if (@state && @code)
         @data = post_api("https://api.weibo.com/oauth2/access_token", {:client_id => @appkey, :client_secret => @appsecret, :grant_type => "authorization_code", :redirect_uri => "http://i556.herokuapp.com/weibo", :code => @code})
         @access_token = @data["access_token"]
@@ -55,9 +57,9 @@ class WeibosController < ApplicationController
         @msgs = get_api("https://api.weibo.com/2/statuses/user_timeline.json", {:access_token => @access_token})
         if !@msgs["error"]
           @colle = { "name" => @msgs["statuses"][0]["user"]["screen_name"], "texts" => [] }
-          @json = format.json(@colle)
         end
       end
+
     end
 
     def show
