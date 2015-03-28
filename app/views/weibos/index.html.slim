@@ -38,12 +38,12 @@ h3
   string
   - if @colle && @colle["name"]
     = "#{@colle["name"]}de weibo"
-    - if @colle["statuses"]
-      - @colle["statuses"].each do |status|
-        - if status && status["text"] && status["created_at"]
+    - if @colle["texts"]
+      - @colle["texts"].each do |text|
+        - if text && text["text"] && text["created_at"]
           p
             string
-              = "#{status["text"]} : #{status["created_at"]}"
+              = "#{text["text"]} : #{text["created_at"]}"
   - @wb_msgs.each do |msg|
     p  
       string 
