@@ -68,8 +68,7 @@ class WeibosController < ApplicationController
           end
         end
       end
-      tmp_msgs = current_user.wb_msgs
-      @wb_msgs = tmp_msgs.reverse
+      @wb_msgs = current_user.wb_msgs
     end
 
     def show
@@ -79,8 +78,7 @@ class WeibosController < ApplicationController
     def post
       @user = User.find(params[:id])
       if @user
-        @msgs = @user.wb_msgs 
-        @wb_msgs = @msgs.reverse
+        @wb_msgs = @user.wb_msgs 
       end
     end
 end
