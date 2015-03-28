@@ -6,10 +6,11 @@
 = render 'layouts/banner'
 
 .container
-  .jumbtoron
+  .jumbtoron.text-center
     h1 556
     p.lead
       = "欢迎来到556的实验发射基地"
   hr
-  a.btn.btn-primary href=weibo_path
-    Go to Weibo!
+  .text-center
+    a.btn.btn-primary.btn-lg href=weibo_path
+      = "去看微博"

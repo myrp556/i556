@@ -1,9 +1,20 @@
-h1 Users
+= content_for :link do
+  = javascript_include_tag 'users_post'
+= content_for :title do
+  = "Users"
 
-table
-  tbody
-    - @users.each do |user|
-      tr
-        td 
-          = user.email
+= render 'layouts/banner'
+
+.container
+  table.table.table-hover
+    tbody
+      - @users.each do |user|
+        tr.table-tr user_id="#{user.id}" style="cursor:pointer"
+          td 
+            = user.email
+          td
+            - if user.screen_name
+              = user.screen_name
+            - else
+              = "<未认证>"
   

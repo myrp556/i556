@@ -12,11 +12,16 @@ nav.navbar.navbar-default
         li 
           a href=home_index_path 
             strong Home
+        li
+          a href=users_path
+            strong Users
       ul.nav.navbar-nav.navbar-right
         - if !current_user
           li
             a href = new_user_session_path
               strong Login
+            a href = users_path
+              strong Users
         -else
           li.dropdown
             a.dropdown-toggle href="#" data-toggle="dropdown"

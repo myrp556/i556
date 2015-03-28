@@ -16,5 +16,7 @@ Rails.application.config.assets.precompile += %w( home.js )
 Rails.application.config.assets.precompile += %w( home.css )
 Rails.application.config.assets.precompile += %w( login.css )
 
+Rails.application.config.assets.precompile += %w( users_post.js )
+
 Rails.application.config.assets.precompile += %w( weibos.js )
 Rails.application.config.assets.precompile += %w( weibos.css )
