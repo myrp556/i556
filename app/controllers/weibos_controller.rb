@@ -33,14 +33,11 @@ end
 class WeibosController < ApplicationController
     before_filter :authenticate_user!
     def index
-      @wb_msgs = current_user.wb_msgs
       @appkey = "2601417764"
       @appsecret = "510fd9a175bc9f24d05514a6708c9517"
       @state = params[:state]
       @code = params[:code]
       @access_token = current_user.access_token
-      @h = { "a" => 1, "b" => 2 }
-      @j = @h.to_json
       if (@state && @code)
         @data = post_api("https://api.weibo.com/oauth2/access_token", {:client_id => @appkey, :client_secret => @appsecret, :grant_type => "authorization_code", :redirect_uri => "http://i556.herokuapp.com/weibo", :code => @code})
         @access_token = @data["access_token"]
@@ -59,8 +56,8 @@ class WeibosController < ApplicationController
           current_user.screen_name = @msgs["statuses"][0]["user"]["screen_name"]
           current_user.save
           @colle = { "name" => @msgs["statuses"][0]["user"]["screen_name"], "texts" => [] }
-
-          for msg in @wb_msgs
+          tmp_msgs = current_user.wb_msgs
+          for msg in tmp_msgs
             msg.destroy
           end
 
@@ -69,10 +66,10 @@ class WeibosController < ApplicationController
             msg = WbMsg.new( :user_id => current_user.id, :content => status["text"], "auther" => current_user.screen_name, "created_date" => status["created_at"] )
             msg.save
           end
-          @wb_msgs = current_user.wb_msgs
         end
       end
-
+      tmp_msgs = current_user.wb_msgs
+      @wb_msgs = tmp_msgs.reverse
     end
 
     def show
@@ -82,8 +79,8 @@ class WeibosController < ApplicationController
     def post
       @user = User.find(params[:id])
       if @user
-        @wb_msgs = @user.wb_msgs 
-        @wb_msgs = @wb_msgs.reverse
+        @msgs = @user.wb_msgs 
+        @wb_msgs = @msgs.reverse
       end
     end
 end

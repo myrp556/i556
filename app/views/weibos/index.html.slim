@@ -8,23 +8,22 @@
 
 .container
   - if !current_user.screen_name
-    h2 你还没有获得微博认证...
+    h1 你还没有获得微博认证...
+    a.btn.btn-success href="https://api.weibo.com/oauth2/authorize?client_id=#{@appkey}&redirect_uri=http://i556.herokuapp.com/weibo&state=2&response_type=code" type="button"
+      = "微博认证"
   - else
-    h2
-      = "#{current_user.screen_name}的微博"
+    div
+      h1
+        = "#{current_user.screen_name}的微博"
+      .text-right
+        a.btn.btn-success href="https://api.weibo.com/oauth2/authorize?client_id=#{@appkey}&redirect_uri=http://i556.herokuapp.com/weibo&state=2&response_type=code" type="button"
+          = "更新微博"
     hr
 
     .weiboss
-  string
-  - if @colle && @colle["name"]
-    = "#{@colle["name"]}de weibo"
-    - if @colle["texts"]
-      - @colle["texts"].each do |text|
-        - if text && text["text"] && text["created_date"]
-          p
-            = "#{text["text"]}"
-          small
-            = "#{text["created_date"]}"
-
-a href="https://api.weibo.com/oauth2/authorize?client_id=#{@appkey}&redirect_uri=http://i556.herokuapp.com/weibo&state=2&response_type=code" 
-  = "get weibo"
+      - if @wb_msgs.length>0
+        - @wb_msgs.each do |msg|
+          h5  
+            = "#{ msg.content }" 
+          h6.small.text-right
+            = "#{ msg.created_date }"
