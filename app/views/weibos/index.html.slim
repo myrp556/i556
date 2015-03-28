@@ -35,6 +35,15 @@ h3
 = link_to 'logout', destroy_user_session_path, method: :delete
 
 .weiboss
+  string
+  - if @colle && @colle["name"]
+    = "#{@colle["name"]}de weibo"
+    - if @colle["statuses"]
+      - @colle["statuses"].each do |status|
+        - if status && status["text"] && status["created_at"]
+          p
+            string
+              = "#{status["text"]} : #{status["created_at"]}"
   - @wb_msgs.each do |msg|
     p  
       string 
