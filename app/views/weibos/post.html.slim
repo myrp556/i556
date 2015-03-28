@@ -10,7 +10,7 @@ else
     - if @wb_msgs.length>0
       - @wb_msgs.each do |msg|
         p
-          = msg.content
+          = "#{msg.content} : #{msg.created_date} : #{msg.id}"
   - else
     h2
       ="This user has not get Weibo.."
