@@ -5,7 +5,12 @@
   = stylesheet_link_tag 'weibos'
 
 = render 'layouts/banner'
-
+- if @alert && @alert["type"] && (@alert["msg"] || @alert["error"])
+  div class="alert alert-#{@alert['type']}" role="alert"
+    - if @alert["msg"]
+        = @alert["msg"]
+    - if @alert["error"]
+        = "#{@alert["error"]} error code: #{@alert["error_code"]}"
 .container
   - if !current_user.screen_name
     h1 你还没有获得微博认证...

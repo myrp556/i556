@@ -38,19 +38,27 @@ class WeibosController < ApplicationController
       @state = params[:state]
       @code = params[:code]
       @access_token = current_user.access_token
+      flag = false
       if (@state && @code)
         @data = post_api("https://api.weibo.com/oauth2/access_token", {:client_id => @appkey, :client_secret => @appsecret, :grant_type => "authorization_code", :redirect_uri => "http://i556.herokuapp.com/weibo", :code => @code})
         @access_token = @data["access_token"]
         if @access_token
+          flag=true
           current_user.access_token = @access_token
           current_user.save
+        end
+        if @data["error"]
+            flag=false
+            @alert["type"]="warning"
+            @alert["error"]=@data["error"]
+            @alert["error_code"]=@data["error_code"]
         end
       end
       @info = access_token_inval( @access_token )
       if (!@access_token)
       end
       @colle = {}
-      if (@access_token)
+      if (@access_token && flag)
         @msgs = get_api("https://api.weibo.com/2/statuses/user_timeline.json", {:access_token => @access_token, :count => 100})
         if !@msgs["error"]
           current_user.screen_name = @msgs["statuses"][0]["user"]["screen_name"]
@@ -66,6 +74,12 @@ class WeibosController < ApplicationController
             msg = WbMsg.new( :user_id => current_user.id, :content => status["text"], "auther" => current_user.screen_name, "created_date" => status["created_at"] )
             msg.save
           end
+          @alert["type"]="success"   
+          @alert["msg"]="get statuses success, get #{@msg["statuses"].length}. "
+        else
+            @alert["type"]="warning"
+            @alert["error"]=@msgs["error"]
+            @alert["error_code"]=@msgs["error_code"]
         end
       end
       @wb_msgs = current_user.wb_msgs
