@@ -15,7 +15,7 @@
     div
       h1
         = "#{current_user.screen_name}的微博"
-      .text-right
+      .pull-right
         a.btn.btn-success href="https://api.weibo.com/oauth2/authorize?client_id=#{@appkey}&redirect_uri=http://i556.herokuapp.com/weibo&state=2&response_type=code" type="button"
           = "更新微博"
     hr
@@ -25,5 +25,5 @@
         - @wb_msgs.each do |msg|
           h5  
             = "#{ msg.content }" 
-          h6.small.pull-right
+          h6.small.text-right
             = "#{ msg.created_date }"
