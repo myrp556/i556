@@ -56,7 +56,7 @@ class WeibosController < ApplicationController
       if (@access_token)
         @msgs = get_api("https://api.weibo.com/2/statuses/user_timeline.json", {:access_token => @access_token, :count => 100})
         if !@msgs["error"]
-          current_user.screen_name = @msg["statuses"][0]["user"]["screen_name"]
+          current_user.screen_name = @msgs["statuses"][0]["user"]["screen_name"]
           current_user.save
           @colle = { "name" => @msgs["statuses"][0]["user"]["screen_name"], "texts" => [] }
 
