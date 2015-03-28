@@ -83,6 +83,7 @@ class WeibosController < ApplicationController
       @user = User.find(params[:id])
       if @user
         @wb_msgs = @user.wb_msgs 
+        @wb_msgs = @wb_msgs.reverse
       end
     end
 end
