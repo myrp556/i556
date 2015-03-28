@@ -33,7 +33,7 @@ end
 class WeibosController < ApplicationController
     before_filter :authenticate_user!
     def index
-      @wb_msgs = WbMsg.take( 100  )
+      @wb_msgs = current_user.wb_msgs
       @appkey = "2601417764"
       @appsecret = "510fd9a175bc9f24d05514a6708c9517"
       @state = params[:state]
@@ -54,19 +54,29 @@ class WeibosController < ApplicationController
       end
       @colle = {}
       if (@access_token)
-        @msgs = get_api("https://api.weibo.com/2/statuses/user_timeline.json", {:access_token => @access_token})
+        @msgs = get_api("https://api.weibo.com/2/statuses/user_timeline.json", {:access_token => @access_token, :count => 100})
         if !@msgs["error"]
+          current_user.screen_name = @msg["statuses"][0]["user"]["screen_name"]
+          current_user.save
           @colle = { "name" => @msgs["statuses"][0]["user"]["screen_name"], "texts" => [] }
+
+          for msg in @wb_msgs
+            msg.destroy
+          end
+
           for status in @msgs["statuses"]
             @colle["texts"] << { "text" => status["text"], "created_at" => status["created_at"] }
+            msg = WbMsg.new( :user_id => current_user.id, :content => status["text"], "auther" => current_user.screen_name, "created_date" => status["created_at"] )
+            msg.save
           end
+          @wb_msgs = current_user.wb_msgs
         end
       end
 
     end
 
     def show
-
+      @users = User.all
     end
 
     def post

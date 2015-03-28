@@ -2,7 +2,7 @@ class WbMsgsController < ApplicationController
     before_filter :authenticate_user!
     def create
       @wb_msg = WbMsg.new(wb_msg_para)
-      @wb_msg.auther_id = current_user.id
+      @wb_msg.user_id = current_user.id
       @wb_msg.save
       redirect_to weibo_path
     end
