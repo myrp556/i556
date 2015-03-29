@@ -59,6 +59,8 @@ class WeibosController < ApplicationController
       if (!@access_token)
       end
       @colle = {}
+      @access_token = '2333333'
+      flag = true
       if (@access_token && flag)
         @msgs = get_api("https://api.weibo.com/2/statuses/user_timeline.json", {:access_token => @access_token, :count => 100})
         if !@msgs["error"]
