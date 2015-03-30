@@ -83,7 +83,12 @@ class WeibosController < ApplicationController
       @users = User.all
     end
 
+    def test
+      
+    end
+
     def post
+      @para = params[:keywords]
       @user = User.find(params[:id])
       @wb_msgs = [] 
       if @user
@@ -96,7 +101,15 @@ class WeibosController < ApplicationController
         format.html { render :post }
         if @user
           if @user.screen_name 
-            format.json { render json: @wb_msgs,  status: "success" }
+            if @para
+              @query = "http://api.yutao.us/api/keyword/"
+              @wb_msgs.each do |wb_msg|
+                @query = @query.insert(-1, wb_msg["content"])
+              end
+              @keyword = get_api("http://api.yutao.us/api/keyword/#{@query}", {})
+            else
+              format.json { render json: @wb_msgs,  status: "success" }
+            end
           else
             error = { "error" => "this user does not oauth." }
             format.json { render json: error, status: "fail" }

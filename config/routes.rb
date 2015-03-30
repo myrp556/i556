@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :path_names => {:users => "reg"}
   get 'home/index'
   get 'weibo' => 'weibos#index'
   root :to => 'home#index'
@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post 'wb_msgs/new' => 'wb_msgs#create'
 
   get 'post/:id' => 'weibos#post'
+  get 'test' => 'weibos#test'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
