@@ -1,3 +1,4 @@
+#encoding: utf-8
 = content_for :link
 
 = content_for :title
@@ -11,6 +12,9 @@
     h1 该用户不存在! 
   - else
     = @para
+    p
+      =@res.class
+      =@keywords
     - if @user['screen_name']
       h1
         ="#{@user['screen_name']}的微博"
@@ -28,8 +32,6 @@
                     h6.small.text-right
                       = "#{msg['created_date']}"
       - else
-        p
-          = @query
         p
           = @keywords
     - else

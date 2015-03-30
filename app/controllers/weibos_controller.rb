@@ -1,6 +1,8 @@
 require 'net/https'
+require 'net/http'
 require 'uri'
 require 'json'
+require 'uri'
 
 def post_api(api, args)
     uri = URI.parse api
@@ -28,6 +30,12 @@ def access_token_inval(access_token)
       return true
     end
     false
+end
+
+def get_words(addr)
+    @addrs = addr
+    @res = Net::HTTP.get_response(URI(URI::escape(addr))).body.force_encoding("utf-8")
+    @res = @res.split(',')
 end
 
 class WeibosController < ApplicationController
@@ -89,7 +97,6 @@ class WeibosController < ApplicationController
 
     def post
       @para = params[:keywords]
-      @para = @para.gsub(/[\n\t\?\？\[\]\\\/\,\<\.\>\?\;\:\"\'\{\}\-\_\+\=\~\`\!\@\#\$\%\^\&\*\(\)\|\，\。\《\》\？\：\;\“\”\‘\’\【\『\】\』\、\！\……\～\（\）]/, ' ')
       @user = User.find(params[:id])
       @wb_msgs = [] 
       if @user
@@ -98,16 +105,29 @@ class WeibosController < ApplicationController
           @wb_msgs << { "content" => msg.content, "created_date" => msg.created_date }
         end
       end
+    
       respond_to do |format|
         format.html { render :post }
         if @user
           if @user.screen_name 
             if @para
+              @keywords=[]
               @query = "http://api.yutao.us/api/keyword/<"
               @wb_msgs.each do |wb_msg|
+                if (@query.length > 40000)
+                  res = get_words(@query+">")
+                  res.each do |word|
+                    if !@keywords.index(word)
+                        @keywords << word
+                    end
+                  end
+                  @query = "http://api.yutao.us/api/keyword/<"
+                end
                 @query = @query.insert(-1, " "+wb_msg["content"].gsub(/[\n\t\?\？\[\]\\\/\,\<\.\>\?\;\:\"\'\{\}\-\_\+\=\~\`\!\@\#\$\%\^\&\*\(\)\|\，\。\《\》\？\：\;\“\”\‘\’\【\『\】\』\、\！\……\～\（\）\·]/, " "))
+                @query = @query.gsub(/\s+/, " ")
               end
-              @keywords = get_api(URI::escape(@query.gsub(/\s+/, "%20")+">"), {})
+              #addr = URI::escape(@query.gsub(/\s+/, "%20")+">")
+              
             else
               format.json { render json: @wb_msgs,  status: "success" }
             end
