@@ -106,7 +106,7 @@ class WeibosController < ApplicationController
               @wb_msgs.each do |wb_msg|
                 @query = @query.insert(-1, wb_msg["content"])
               end
-              @keyword = get_api("http://api.yutao.us/api/keyword/#{@query}", {})
+              @keyword = get_api({@query, {})
             else
               format.json { render json: @wb_msgs,  status: "success" }
             end
