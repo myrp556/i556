@@ -6,7 +6,7 @@
 = render 'layouts/banner'
 p
 - if @alert && @alert["type"] && (@alert["msg"] || @alert["error"])
-  div class="alert alert-#{@alert['type']}" role="alert" style="postion: fixed;"
+  div class="alert alert-#{@alert['type']} top-alert" role="alert" style="postion: fixed;"
     - if @alert["msg"]
         = @alert["msg"]
     - if @alert["error"]

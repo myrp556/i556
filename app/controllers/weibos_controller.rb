@@ -76,7 +76,7 @@ class WeibosController < ApplicationController
             @alert = { "type" => "warning", "error" => @msgs["error"], "error_code" => @msgs["error_code"] }
         end
       end
-      @wb_msgs = current_user.wb_msgs
+      @wb_msgs = current_user.wb_msgs.order("created_date desc")
     end
 
     def show
