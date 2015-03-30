@@ -107,7 +107,7 @@ class WeibosController < ApplicationController
               @wb_msgs.each do |wb_msg|
                 @query = @query.insert(-1, " "+wb_msg["content"].gsub(/[\n\t\?\？\[\]\\\/\,\<\.\>\?\;\:\"\'\{\}\-\_\+\=\~\`\!\@\#\$\%\^\&\*\(\)\|\，\。\《\》\？\：\;\“\”\‘\’\【\『\】\』\、\！\……\～\（\）\·]/, " "))
               end
-              @keywords = get_api(@query.gsub(/\s+/, "%20")+">", {})
+              @keywords = get_api(URI::escape(@query.gsub(/\s+/, "%20")+">"), {})
             else
               format.json { render json: @wb_msgs,  status: "success" }
             end
