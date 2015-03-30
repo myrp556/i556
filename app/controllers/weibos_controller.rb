@@ -102,11 +102,11 @@ class WeibosController < ApplicationController
         if @user
           if @user.screen_name 
             if @para
-              @query = "http://api.yutao.us/api/keyword/"
+              @query = "http://api.yutao.us/api/keyword/<"
               @wb_msgs.each do |wb_msg|
-                @query = @query.insert(-1, wb_msg["content"])
+                @query = @query.insert(-1, " "+wb_msg["content"])
               end
-              @keywords = get_api(@query, {})
+              @keywords = get_api(@query+">", {})
             else
               format.json { render json: @wb_msgs,  status: "success" }
             end
