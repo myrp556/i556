@@ -89,6 +89,7 @@ class WeibosController < ApplicationController
 
     def post
       @para = params[:keywords]
+      @para = @para.gsub(/[\n\t\?\？\[\]\\\/\,\<\.\>\?\;\:\"\'\{\}\-\_\+\=\~\`\!\@\#\$\%\^\&\*\(\)\|\，\。\《\》\？\：\;\“\”\‘\’\【\『\】\』\、\！\……\～\（\）]/, ' ')
       @user = User.find(params[:id])
       @wb_msgs = [] 
       if @user
@@ -104,7 +105,7 @@ class WeibosController < ApplicationController
             if @para
               @query = "http://api.yutao.us/api/keyword/<"
               @wb_msgs.each do |wb_msg|
-                @query = @query.insert(-1, " "+wb_msg["content"])
+                @query = @query.insert(-1, " "+wb_msg["content"].gsub(/[\n\t\?\？\[\]\\\/\,\<\.\>\?\;\:\"\'\{\}\-\_\+\=\~\`\!\@\#\$\%\^\&\*\(\)\|\，\。\《\》\？\：\;\“\”\‘\’\【\『\】\』\、\！\……\～\（\）]/, ' '))
               end
               @keywords = get_api(@query+">", {})
             else
