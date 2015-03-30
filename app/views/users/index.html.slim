@@ -6,13 +6,13 @@
 .container
   table.table.table-hover
     tbody
-      - @users.each do |user|
-        tr.table-tr user_id="#{user.id}" style="cursor:pointer"
+      - @users_info.each do |user|
+        tr.table-tr user_id="#{user['id']}" style="cursor:pointer"
           td 
-            = user.email
+            = user["email"]
           td
-            - if user.screen_name
-              = user.screen_name
+            - if user['screen_name']
+              = user['screen_name']
             - else
               = "<未认证>"
   

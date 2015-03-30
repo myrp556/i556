@@ -85,8 +85,26 @@ class WeibosController < ApplicationController
 
     def post
       @user = User.find(params[:id])
+      @wb_msgs = [] 
       if @user
-        @wb_msgs = @user.wb_msgs 
+        msgs = @user.wb_msgs.order("created_date desc") 
+        msgs.each do |msg|
+          @wb_msgs << { "content" => msg.content, "created_date" => msg.created_date }
+        end
+      end
+      respond_to do |format|
+        format.html { render :post }
+        if @user
+          if @user.screen_name 
+            format.json { render json: @wb_msgs,  status: "success" }
+          else
+            error = { "error" => "this user does not oauth." }
+            format.json { render json: error, status: "fail" }
+          end
+        else
+          error = { "error" => "no such a user" }
+          format.json { render json: error,  status: "fail"}
+        end
       end
     end
 end
