@@ -9,13 +9,13 @@
 
   - if !@user
     h1 该用户不存在! 
-  else
+  - else
     = @para
     - if @user['screen_name']
       h1
         ="#{@user['screen_name']}的微博"
       hr
-      - if @para
+      - if !@para
         - if @wb_msgs.length>0
           table.table
             tbody
