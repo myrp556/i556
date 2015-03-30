@@ -37,7 +37,7 @@ class WeibosController < ApplicationController
       @appsecret = "510fd9a175bc9f24d05514a6708c9517"
       @state = params[:state]
       @code = params[:code]
-      @alert = {"msg" => nil, "error" => nil, "error_code" => nil, "type" => nil}
+      @alert = {"msg" => nil, "error" => nil, "error_code" => nil, "type" => "success"}
       @access_token = current_user.access_token
       flag = false
       if (@state && @code)
@@ -77,7 +77,7 @@ class WeibosController < ApplicationController
         end
       end
       @wb_msgs = current_user.wb_msgs
-      @alert = @alert.to_json
+      @alert_msg = @alert.to_json
     end
 
     def show
