@@ -1,6 +1,4 @@
+hide_top_alert ->
+  $(".top-alert").slideToggle()
 $(document).ready ->
-  code = $("code").html()
-  state = $("state").html()
-  console.log "code: "+code
-  console.log "state:"+state
-    
+   top_alert_time = setTimeout(hide_top_alert, 3000) 

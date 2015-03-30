@@ -15,11 +15,16 @@
         ="#{@user.screen_name}的微博"
       hr
       - if @wb_msgs.length>0
-        - @wb_msgs.each do |msg|
-          h5
-            = "#{msg.content}"
-          h6.small.text-right
-            = "#{msg.created_date}"
+        table.table
+          tbody
+            - @wb_msgs.each do |msg|
+              tr
+                td
+                  h5
+                    = "#{msg.content}"
+                td
+                  h6.small.text-right
+                    = "#{msg.created_date}"
     - else
       h2
         ="该用户还没有获得微博认证..."

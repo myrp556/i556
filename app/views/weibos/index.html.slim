@@ -6,7 +6,7 @@
 = render 'layouts/banner'
 p
 - if @alert && @alert["type"] && (@alert["msg"] || @alert["error"])
-  div class="alert alert-#{@alert['type']}" role="alert" style="postion: fixed;"
+  div class="alert alert-#{@alert['type']} top-alert" role="alert" style="postion: fixed;"
     - if @alert["msg"]
         = @alert["msg"]
     - if @alert["error"]
@@ -28,8 +28,8 @@ p
     .weiboss
       - if @wb_msgs.length>0
         table.table
-          - @wb_msgs.each do |msg|
-            tbody
+          tbody
+            - @wb_msgs.each do |msg|
               tr
                 td
                   h5  

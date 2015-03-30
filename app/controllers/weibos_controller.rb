@@ -77,7 +77,6 @@ class WeibosController < ApplicationController
         end
       end
       @wb_msgs = current_user.wb_msgs
-      @alert_msg = @alert.to_json
     end
 
     def show
