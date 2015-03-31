@@ -1,6 +1,5 @@
 #encoding: utf-8
-= content_for :link
-
+= stylesheet_link_tag 'weibos'
 = content_for :title
   = "Post"
 
@@ -14,6 +13,9 @@
     - if @user['screen_name']
       h1
         ="#{@user['screen_name']}的微博"
+        .pull-right
+          a.btn.btn-primary href="/post/#{@user.id}/keywords=1"
+            = "关键词"
       hr
       - if !@para
         - if @wb_msgs.length>0
