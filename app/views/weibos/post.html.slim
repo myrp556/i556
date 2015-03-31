@@ -28,10 +28,11 @@
                     h6.small.text-right
                       = "#{msg['created_date']}"
       - else
-        panel.panel.panel-default
+        .panel.panel-default
           .panel-body
             - @keywords.each do |keyword|
-              = keyword
+              span.label.label-primary
+                = keyword
             
           
     - else
