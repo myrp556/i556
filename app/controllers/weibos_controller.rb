@@ -125,6 +125,12 @@ class WeibosController < ApplicationController
                 @query = @query.insert(-1, " "+wb_msg["content"].gsub(/[\n\t\?\？\[\]\\\/\,\<\.\>\?\;\:\"\'\{\}\-\_\+\=\~\`\!\@\#\$\%\^\&\*\(\)\|\，\。\《\》\？\：\;\“\”\‘\’\【\『\】\』\、\！\……\～\（\）\·]/, " "))
                 @query = @query.gsub(/\s+/, " ")
               end
+              res = get_words(@query+">")
+              res.each do |word|
+                if !@keywords.index(word)
+                    @keywords << word
+                end
+              end
               #addr = URI::escape(@query.gsub(/\s+/, "%20")+">")
               
             else
