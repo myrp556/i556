@@ -32,9 +32,10 @@
       - else
         .panel.panel-default
           .panel-body
-            - @keywords.each do |keyword|
-              span.label.label-primary
-                = keyword
+            .container-fluid
+              - @keywords.each do |keyword|
+                span.label.label-primary
+                  = keyword
             
           
     - else
