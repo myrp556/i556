@@ -38,7 +38,7 @@ def get_words(addr)
 end
 
 class WeibosController < ApplicationController
-    before_filter :authenticate_user!
+    before_filter :authenticate_user, :except => :post
     def index
       @appkey = "2601417764"
       @appsecret = "510fd9a175bc9f24d05514a6708c9517"

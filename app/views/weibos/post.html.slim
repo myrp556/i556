@@ -12,7 +12,8 @@
   - else
     - if @user['screen_name']
       h1
-        ="#{@user['screen_name']}的微博"
+        strong
+          ="#{@user['screen_name']}的微博"
         .pull-right
           a.btn.btn-primary href="/post/#{@user.id}?keywords=1"
             = "关键词"

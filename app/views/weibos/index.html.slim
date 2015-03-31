@@ -13,13 +13,15 @@ p
         = "#{@alert["error"]} error code: #{@alert["error_code"]}"
 .container
   - if !current_user.screen_name
-    h1 你还没有获得微博认证...
+    h1 
+      strong 你还没有获得微博认证...
     a.btn.btn-success href="https://api.weibo.com/oauth2/authorize?client_id=#{@appkey}&redirect_uri=http://i556.herokuapp.com/weibo&state=2&response_type=code" type="button"
       = "微博认证"
   - else
     div
       h1
-        = "#{current_user.screen_name}的微博"
+        strong
+          = "#{current_user.screen_name}的微博"
         .pull-right
           a.btn.btn-success href="https://api.weibo.com/oauth2/authorize?client_id=#{@appkey}&redirect_uri=http://i556.herokuapp.com/weibo&state=2&response_type=code" type="button"
             = "更新微博"
