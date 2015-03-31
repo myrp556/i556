@@ -18,17 +18,17 @@
         nav
           ul.nav.nav-pills.pull-right
             - if !@para
-              .li.active
+              li.active
                 a href="#"
                   = "微博"
-              .li
+              li
                 a href="/post/#{@user.id}?keywords=1"
                   = "关键词"
             - else
-              .li
-                a href="/post/#{user.id}"
+              li
+                a href="/post/#{@user.id}"
                   = "微博"
-              .li.active
+              li.active
                 a href="#"
                   = "关键词"
       hr
