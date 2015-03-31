@@ -113,7 +113,7 @@ class WeibosController < ApplicationController
               @keywords=[]
               @query = "http://api.yutao.us/api/keyword/<"
               @wb_msgs.each do |wb_msg|
-                if (@query.length > 1500)
+                if (@query.length > 1000)
                   res = get_words(@query+">")
                   res.each do |word|
                     if !@keywords.index(word)
