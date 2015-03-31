@@ -33,9 +33,10 @@
         .panel.panel-default
           .panel-body
             .container-fluid
-              - @keywords.each do |keyword|
-                span.label.label-primary
-                  = keyword
+              p
+                - @keywords.each do |keyword|
+                  span.label.label-primary
+                    = keyword
             
           
     - else
