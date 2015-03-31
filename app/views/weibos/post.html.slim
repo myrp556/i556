@@ -11,10 +11,6 @@
   - if !@user
     h1 该用户不存在! 
   - else
-    = @para
-    p
-      =@res.class
-      =@keywords
     - if @user['screen_name']
       h1
         ="#{@user['screen_name']}的微博"
@@ -32,8 +28,13 @@
                     h6.small.text-right
                       = "#{msg['created_date']}"
       - else
-        p
+        panel.panel.panel-default
+          .panel-body
           = @keywords
+            - @keywords.each do |keyword|
+              = keyword
+            
+          
     - else
       h2
         ="该用户还没有获得微博认证..."
