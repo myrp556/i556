@@ -14,7 +14,7 @@
       h1
         ="#{@user['screen_name']}的微博"
         .pull-right
-          a.btn.btn-primary href="/post/#{@user.id}/keywords=1"
+          a.btn.btn-primary href="/post/#{@user.id}?keywords=1"
             = "关键词"
       hr
       - if !@para
